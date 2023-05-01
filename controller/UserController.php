@@ -111,6 +111,7 @@ class UserController
 
                 $user_exits = $user->get_one_user($user_name, $email);
                 if (isset($user_exits)) {
+                    $error = "Trùng Username or email";
                     header('Location: /user/register');
                     
                 } else {
