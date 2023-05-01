@@ -104,8 +104,7 @@ class UserController
                 $address = trim($address);
 
                 if (empty($user_name) || empty($pass_word) || empty($email) || empty($phone_number)) {
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
-                    exit;
+                    header('Location: /user/register');
                 }
 
                 $user = new User();
@@ -113,13 +112,12 @@ class UserController
                 $user_exits = $user->get_one_user($user_name, $email);
 
                 if ($user_exits) {
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
-                    exit;
+                    header('Location: /user/register');
+                    
                 } else {
                     $pass_word = md5($pass_word);
                     $user->register($user_name, $pass_word, $email, $phone_number, $address);
-                    header('Location: /user/login');
-                    exit;
+                    header('Location: /');
                 }
             }
         } catch (\Throwable $th) {
