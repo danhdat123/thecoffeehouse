@@ -18,7 +18,7 @@ class ProductController
         }
 
         //Thư mục bạn sẽ lưu file upload
-        $target_dir    = "public/image/uploads/";
+        $target_dir    = "public/image/products/";
         //Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
         $target_file   = $target_dir . basename($_FILES["upload"]["name"]);
 
@@ -67,7 +67,7 @@ class ProductController
     public function review()
     {
         if (isset($_GET['img'])) {
-            $path =  "https://thecoffeehouse.test/" . $_GET['img'];
+            $path =   $_GET['img'];
 
             echo "<img src='$path' alt=''>";
         }

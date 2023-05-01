@@ -35,7 +35,7 @@ if (!file_exists($header)) {
             <tr>
               <td><?php echo $i + 1; ?></td>
               <td scope="row"><?php echo  $orders[$i]['id'] ?></td>
-              <td><img src="<?php echo '/public/image/products/' . $orders[$i]['image'] ?>" alt="" width="100px" height="100px"></td>
+              <td><img src="<?php echo  $orders[$i]['image'] ?>" alt="" width="100px" height="100px"></td>
               <td><strong><?php echo  $orders[$i]['product_name'] ?></strong></td>
               <td><strong><?php echo  $orders[$i]['product_price'] ?></strong> đ</td>
               <td><?php echo  $orders[$i]['quantity'] ?> ly</td>

@@ -1,6 +1,6 @@
 <?php
-require BASE_PATH . 'View/admin/layout/header.php'
-
+$title= "Danh sách Đơn hàng";
+require BASE_PATH . 'View/admin/layout/header.php';
 ?>
 
     <style>
@@ -39,11 +39,11 @@ require BASE_PATH . 'View/admin/layout/header.php'
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
                                         <th>Số tt</th>
@@ -71,7 +71,7 @@ require BASE_PATH . 'View/admin/layout/header.php'
 
                                     <tbody>
                                     <?php
-                                    $total_prod = count($products);
+                                    $total_prod = count($orders);
                                     if ($total_prod == 0) {
                                         echo "Chưa có sản phẩm nào";
                                     } else
@@ -79,13 +79,11 @@ require BASE_PATH . 'View/admin/layout/header.php'
                                             ?>
                                             <tr>
                                                 <td><?php echo $i + 1; ?></td>
-                                                <td><?php echo $products[$i]['product_name'] ?></td>
-                                                <td><?php echo $products[$i]['product_price'] ?></td>
-                                                <td><?php echo "<img src=" . $products[$i]['image'] . ">" ?></td>
-                                                <td><?php echo $products[$i]['description'] ?></td>
-                                                <td><?php echo $products[$i]['created_at'] ?></td>
+                                                <td><?php echo $orders[$i]['user_name'] ?></td>
+                                                <td><?php echo "<img src=" . $orders[$i]['image'] . ">" ?></td>
+                                                <td><?php echo $orders[$i]['created_at'] ?></td>
                                                 <td>
-                                                    <a href="/admin/form_edit_product/<?php echo $products[$i]['id'] ?>"
+                                                    <a href="/admin/form_edit_product/<?php echo $orders[$i]['id'] ?>"
                                                        class="btn btn-warning mr-3">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </a>

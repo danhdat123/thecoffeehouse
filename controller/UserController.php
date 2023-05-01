@@ -128,23 +128,24 @@ class UserController
     }
 
 
-    public function add_cart($id)
+    public function add_cart($id, $size = "M", $quantity = 1 ,$redirect = true)
     {
         session_start();
         if (isset($_SESSION['user_id'])) {
-            $size = "M";
             $order = new Order();
             $order_item = $order->get_one_order($id, $_SESSION['user_id']);
 
 
             // Tồn tại thì update ngược lại thì tạo mới
             if (empty($order_item)) {
-                $order->order_product($_SESSION["user_id"], $id, $size);
+                $order->order_product($_SESSION["user_id"], $id, $size, $quantity);
             } else {
                 $order->order_update_item($_SESSION["user_id"], $order_item['id']);
             }
 
-            header('Location: /');
+            if ($redirect) {
+                header('Location: /');
+            }
         } else {
             header('Location: /user/login_form');
         }
@@ -213,9 +214,33 @@ class UserController
             }
 
             $orders =  $orders->get_all_order_confirm($_SESSION['user_id']);
-            require BASE_PATH."View/Page/notification_order.php";
+            require BASE_PATH . "View/Page/notification_order.php";
         } else {
             header("Location: /");
+        }
+    }
+
+
+    public function buy_now()
+    {
+        try {
+            session_start();
+            if (isset($_SESSION['user_id'])) {
+                $id = $_POST['id'];
+                $size = $_POST['size'];
+                $quantity = $_POST['quantity'];
+
+                $this->add_cart($id,$size, $quantity, false);
+
+                $order = new Order();
+
+                $orders =  $order->change_status_order($_SESSION['user_id']);
+                header('Location: /user/notification_order');
+            } else {
+                header("Location: /");
+            }
+        } catch (\Throwable $th) {
+            die($th);
         }
     }
 }

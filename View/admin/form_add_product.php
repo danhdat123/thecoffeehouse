@@ -50,7 +50,7 @@ require BASE_PATH . 'View/admin/layout/header.php';
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                                            <input type="number" name="product_price" required class="form-control form-control-user" id="exampleInputPassword" placeholder="10$">
+                                                            <input type="number" name="product_price" min="1000" value="1000" required class="form-control form-control-user" id="exampleInputPassword" placeholder="10000">
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
@@ -77,7 +77,7 @@ require BASE_PATH . 'View/admin/layout/header.php';
                                                         </textarea>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                        Register Account
+                                                        Thêm Sản phẩm mới
                                                     </button>
                                                 </form>
                                                 <!-- End Form -->
@@ -93,12 +93,16 @@ require BASE_PATH . 'View/admin/layout/header.php';
                 </div>
 
             </div>
+            <?php
 
+            require BASE_PATH . 'View/admin/layout/footer.php'
+
+            ?>
         </div>
 
 
 
-        <script defer>
+        <!-- <script defer>
             ClassicEditor
                 .create(document.querySelector('#editor'), {
                     htmlSupport: {
@@ -132,8 +136,4 @@ require BASE_PATH . 'View/admin/layout/header.php';
                     blah.src = URL.createObjectURL(file)
                 }
             }
-        </script>
-        <?php
-        require BASE_PATH . 'View/admin/layout/footer.php'
-
-        ?>
+        </script> -->

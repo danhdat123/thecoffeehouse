@@ -36,7 +36,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lí sản phẩm:</h6>
                 <a class="collapse-item" href="/admin/form_add_product">Thêm sản phẩm</a>
-                <a class="collapse-item" href="/admin/form_edit_product">Sửa sản phẩm</a>
             </div>
         </div>
     </li>

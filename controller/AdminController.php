@@ -4,6 +4,7 @@ require_once BASE_PATH . "Model/MasterModel.php";
 require BASE_PATH . 'Model/Product.php';
 require BASE_PATH . 'Model/Category.php';
 require BASE_PATH . 'Model/User.php';
+require BASE_PATH . 'Model/Order.php';
 
 class AdminController
 {
@@ -65,14 +66,14 @@ class AdminController
                 $category_id = $_POST['category_id'];
 
                 //Thư mục bạn sẽ lưu file upload
-                $target_dir = "public/image/uploads/";
+                $target_dir = "public/image/products/";
                 //Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
                 $target_file = $target_dir . basename($_FILES["image"]["name"]);
 
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                    $img_url = "https://thecoffeehouse.test/" . $target_dir . $_FILES["image"]["name"];
-                    $this->category->insert_one($product_name, $product_price, $description, $category_id, $img_url);
-                    header("Location: admin/form_add_product", true, 200);
+                    $img_url = "/" . $target_dir . $_FILES["image"]["name"];
+                    $this->product->insert_one($product_name, $product_price, $description, $category_id, $img_url);
+                    header("Location: /admin/form_add_product");
                 } else {
                     echo json_encode([
                         "uploaded" => true,
@@ -103,17 +104,64 @@ class AdminController
 
     public function order_admin()
     {
-       
-        if ($this->access == true) {
-            $path = BASE_PATH . 'View/admin/form_edit_product.php';
-          
-           $order = new Order();
-           $orders = $order->get_all_order_by_admin();
 
-            if (!file_exists($path)) {
-                Router::Internal_error();
-            } else {
-                require $path;
+        try {
+            if ($this->access == true) {
+                $path = BASE_PATH . 'View/admin/order_list.php';
+                
+                $order = new Order();
+                $orders = $order->get_all_order_by_admin();
+    
+                if (!file_exists($path)) {
+                    Router::Internal_error();
+                } else {
+                    require $path;
+                }
+            }
+        } catch (\Throwable $th) {
+            die($th);
+        }
+    }
+
+
+
+
+    public function delete_product($id)
+    {
+        if ($this->access == true) {
+            $prod = new Product();
+            $product = $prod->delete_product($id);
+
+            header("Location: /admin/dashboard");
+        }
+    }
+
+
+
+    public function edit_product($id)
+    {
+        if ($this->access == true) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $product_name = $_POST['product_name'];
+                $product_price = $_POST['product_price'];
+                $description = $_POST['description'];
+                $category_id = $_POST['category_id'];
+
+                //Thư mục bạn sẽ lưu file upload
+                $target_dir = "public/image/products/";
+                //Vị trí file lưu tạm trong server (file sẽ lưu trong uploads, với tên giống tên ban đầu)
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
+
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                    $img_url = "/" . $target_dir . $_FILES["image"]["name"];
+                    $this->category->insert_one($product_name, $product_price, $description, $category_id, $img_url);
+                    header("Location: /admin/form_add_product");
+                } else {
+                    echo json_encode([
+                        "uploaded" => true,
+                        "message" => "Có lỗi xảy ra khi upload file."
+                    ]);
+                }
             }
         }
     }

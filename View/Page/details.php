@@ -6,6 +6,7 @@ if (!file_exists($header)) {
 } else {
     require $header;
 }
+
 ?>
 
 <style>
@@ -23,7 +24,8 @@ if (!file_exists($header)) {
             <img src="/public/image/products/<?php echo $product['image'] ?>" alt="" style="width: 100%;">
         </div>
         <div class="col-lg-6">
-            <form action="">
+            <form action="/user/buy_now" method="POST">
+                <input type="text" name="id" value="<?php echo $product['id'] ?>" hidden>
                 <div class="row">
                     <div class="col">
                         <h3 class="product-name"><?php echo $product['product_name'] ?></h3>
@@ -34,11 +36,15 @@ if (!file_exists($header)) {
                     <p class="size">Kích thước</p>
                 </div>
                 <div class="row">
-                    <ul id="list-size-price">
-                        <li class="active"><a href="">Lớn</a></li>
-                        <li><a href="">vừa</a></li>
-                        <li><a href="">Nhỏ</a></li>
-                    </ul>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <select class="form-control" name="size" id="size">
+                                <option value="L">Lớn</option>
+                                <option value="M">Vừa</option>
+                                <option value="S">Nhỏ</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -46,9 +52,7 @@ if (!file_exists($header)) {
                         Số lượng
                     </p>
                     <div class="quantity">
-                        <button type="button" class="btn btn-primary" style="font-size: 13px; border-radius: 50%; padding: 0 20px;">-</button>
-                        <input type="text" value="1" style="font-size: 24px; text-align: center; width: 169px;">
-                        <button type="button" class="btn btn-primary" style="font-size: 13px; border-radius: 50%; padding: 0 20px;">+</button>
+                        <input type="number" value="1" min="1" name="quantity" style="font-size: 24px; text-align: center; width: 169px;">
                     </div>
                 </div>
                 <div class="row">
@@ -139,8 +143,6 @@ if (!file_exists($header)) {
     </div>
 </div>
 
-
-<script src="/public/javascript/detail.js" def></script>
 <?php
 $header = BASE_PATH . 'View/include/footer.php';
 

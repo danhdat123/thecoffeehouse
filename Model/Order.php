@@ -48,10 +48,11 @@ class Order extends MasterModel
         return MasterModel::get_all_row($sql);
     }
 
+   
     public function get_all_order_confirm($user_id)
     {
-        $status = "'".$this->status['confirm']."'";
-        $sql = "SELECT * FROM " . $this->table . " LEFT JOIN user on " . $this->table . ".user_id = USER.id LEFT JOIN product on " . $this->table . ".product_id = product.id WHERE " . $this->table . ".user_id = $user_id and ".$this->table.".status = ".$status." and " . $this->table . ".deleted_at is NULL";
+        $status = "'".$this->status['pending']."'";
+        $sql = "SELECT tb_order.*, product.product_name,product.product_price,product.image  FROM " . $this->table . " LEFT JOIN user on " . $this->table . ".user_id = USER.id LEFT JOIN product on " . $this->table . ".product_id = product.id WHERE " . $this->table . ".user_id = $user_id and ".$this->table.".status not like ".$status." and " . $this->table . ".deleted_at is NULL";
 
         return MasterModel::get_all_row($sql);
     }
@@ -81,8 +82,8 @@ class Order extends MasterModel
         
     public function get_all_order_by_admin()
     {
-        $sql = "SELECT * FROM " . $this->table . " LEFT JOIN user on " . $this->table . ".user_id = USER.id LEFT JOIN product on " . $this->table . ".product_id = product.id WHERE " . $this->table . ".status = 'pending' and " . $this->table . ".deleted_at is NULL";
-
+        $sql = "SELECT ".$this->table.".user_id,  sum(".$this->table.".quantity) as 'total_product', max(".$this->table.".updated_at) as 'updated_at', user_name FROM ".$this->table." LEFT JOIN user on ".$this->table.".user_id = USER.id LEFT JOIN product on ".$this->table.".product_id = product.id WHERE ".$this->table.".status = 'confirm' and ".$this->table.".deleted_at is NULL GROUP BY ".$this->table.".user_id, 'total_product'";
+        // die($sql);
         return MasterModel::get_all_row($sql);
     }
 }

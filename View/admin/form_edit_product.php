@@ -44,10 +44,15 @@ require BASE_PATH . 'View/admin/layout/header.php';
                                                     <h1 class="h4 text-gray-900 mb-4">Chỉnh sửa sản phẩm <strong><?php echo $product['product_name'] ?></strong></h1>
                                                 </div>
 
-                                                <form class="user" enctype="multipart/form-data" method="POST" action="/admin/add_product">
+                                                <form class="user" enctype="multipart/form-data" method="POST" action="/admin/edit_product/<?php echo $product['id'] ?>">
+                                                <div class="form-group row">
+                                                        <div class="col-sm-12 mb-3 mb-sm-0">
+                                                            <input type="text" name="id" value="<?php echo $product['id'] ?>" readonly class="form-control form-control-user" id="exampleFirstName" >
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12 mb-3 mb-sm-0">
-                                                            <input type="text" name="product_name" value="<?php echo $product['id'] ?>"  readonly class="form-control form-control-user" id="exampleFirstName" placeholder="Tên sản phẩm">
+                                                            <input type="text" name="product_name" value="<?php echo $product['product_name'] ?>"  class="form-control form-control-user" id="exampleFirstName" placeholder="Tên sản phẩm">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -74,11 +79,11 @@ require BASE_PATH . 'View/admin/layout/header.php';
                                                         </div>
                                                         <div class="form-group row">
                                                             <input accept="image/*" value="<?php echo $product['image']; ?>" name="image" class="image" required type='file' id="imgInp" />
-                                                            <img id="blah" src="<?php echo "/public/image/products/" .$product['image'] ?>" alt="your image" />
+                                                            <img id="blah" src="<?php echo "/public/image/products/" . $product['image'] ?>" alt="your image" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <textarea name="description" id="editor" rows="10" cols="80" required>
+                                                        <textarea name="description" rows="10" cols="80" required>
                                                                         <?php echo $product['description'] ?>
                                                         </textarea>
                                                     </div>
@@ -105,32 +110,6 @@ require BASE_PATH . 'View/admin/layout/header.php';
 
 
         <script defer>
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    htmlSupport: {
-                        allow: [{
-                            name: /.*/,
-                            attributes: true,
-                            classes: true,
-                            styles: true
-                        }]
-                    },
-                    htmlEmbed: {
-                        showPreviews: true
-                    },
-                    ckfinder: {
-                        // Upload the images to the server using the CKFinder QuickUpload command.
-                        uploadUrl: 'https://thecoffeehouse.test/product/upload',
-                        toolbar: ['ckfinder', 'imageUpload', '|', 'heading', '|', 'bold', 'italic', '|', 'undo', 'redo'],
-                    },
-                })
-                .then(data => {
-                    console.log('===============>', data)
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
             imgInp.onchange = evt => {
                 const [file] = imgInp.files
                 if (file) {

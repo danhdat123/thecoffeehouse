@@ -8,6 +8,8 @@ if (!file_exists($header)) {
     require $header;
 }
 
+
+
 ?>
 
 <div id="main">
@@ -58,7 +60,7 @@ if (!file_exists($header)) {
                         <div class="col col-lg-6">
                             <div class="cart cart-first">
                                 <a href="/home/detail/<?php echo $products[$i]['id'] ?>">
-                                    <img class="cart__img" src="/public/image/products/<?php echo $products[$i]['image'] ?>" alt="<?php echo $products[$i]['product_name'] ?>">
+                                    <img class="cart__img" src="<?php echo $products[$i]['image'] ?>" alt="<?php echo $products[$i]['product_name'] ?>">
                                 </a>
                                 <p class="cart__name">
                                     <a href="#">
@@ -100,7 +102,7 @@ if (!file_exists($header)) {
                 <div class="col-lg-3 col-sm-12 col-md-6 mt-lg-3">
                     <div class="cart">
                         <a href="/home/detail/<?php echo $products[$i]['id'] ?>">
-                            <img class="cart__img" src="/public/image/products/<?php echo $products[$i]['image'] ?>" alt="<?php echo $products[$i]['product_name'] ?>">
+                            <img class="cart__img" src="<?php echo $products[$i]['image'] ?>" alt="<?php echo $products[$i]['product_name'] ?>">
                         </a>
                         </a>
                         <p class="cart__name">
