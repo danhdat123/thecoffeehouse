@@ -110,8 +110,7 @@ class UserController
                 $user = new User();
 
                 $user_exits = $user->get_one_user($user_name, $email);
-
-                if ($user_exits) {
+                if (isset($user_exits)) {
                     header('Location: /user/register');
                     
                 } else {
