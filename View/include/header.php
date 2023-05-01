@@ -79,6 +79,8 @@ if (!isset($_SESSION)) {
                 <li><a href="#">Trà</a></li>
                 <li><a href="#">Chuyện Cà phê và Trà</a></li>
                 <li><a href="#">Cửa Hàng</a></li>
+                
+                <!-- Chỉ khi login mới nhìn thấy  -->
                 <?php
                 if (isset($_SESSION['user_name'])) {
                 ?>
@@ -105,6 +107,9 @@ if (!isset($_SESSION)) {
                             <li>
                                 <a href="#">Thông tin tài khoản</a>
                             </li>
+                            <li>
+                                <a href="/user/notification_order">Đơn đã đặt</a>
+                            </li>
                             <?php if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 2) { ?>
                                 <li>
                                     <a href="/admin/dashboard">Dashboard</a>
@@ -113,6 +118,7 @@ if (!isset($_SESSION)) {
                             <li>
                                 <a href="/user/logout">Đăng xuất</a>
                             </li>
+                           
                         </ul>
                     </li>
                     <li>
